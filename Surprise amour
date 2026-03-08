@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Surprise ❤️</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial;
+background:linear-gradient(135deg,#ff4e78,#ff9a9e);
+overflow:hidden;
+}
+
+.card{
+background:white;
+padding:40px;
+border-radius:20px;
+text-align:center;
+width:340px;
+box-shadow:0 15px 40px rgba(0,0,0,0.3);
+position:relative;
+animation:fade 1s;
+}
+
+@keyframes fade{
+from{transform:scale(0.8);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+
+h1{
+color:#ff2e63;
+}
+
+input{
+padding:12px;
+width:85%;
+border-radius:10px;
+border:2px solid #ff4e78;
+margin-bottom:15px;
+}
+
+button{
+padding:12px 25px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.start{
+background:#ff2e63;
+color:white;
+}
+
+.yes{
+background:#00c853;
+color:white;
+margin-right:10px;
+}
+
+.no{
+background:#eee;
+position:absolute;
+}
+
+.hidden{
+display:none;
+}
+
+/* coeurs */
+
+.heart{
+position:absolute;
+color:white;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-800px);opacity:0;}
+}
+
+.success{
+font-size:26px;
+color:#ff2e63;
+animation:pop 1s;
+}
+
+@keyframes pop{
+0%{transform:scale(0);}
+100%{transform:scale(1);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div id="step1">
+<h1>J'ai une surprise pour toi ❤️</h1>
+<input id="nameInput" placeholder="Entre ton prénom">
+<br>
+<button class="start" onclick="start()">Commencer</button>
+</div>
+
+<div id="step2" class="hidden">
+<h2 id="question"></h2>
+<br><br>
+<button class="yes" onclick="yes()">Oui 😍</button>
+<button class="no" id="noBtn">Non 😅</button>
+</div>
+
+<div id="step3" class="hidden">
+<h1 class="success">YEEEEES ❤️🥰</h1>
+<p>Tu viens de faire de moi la personne la plus heureuse 😭❤️</p>
+</div>
+
+</div>
+
+<script>
+
+function start(){
+
+let name=document.getElementById("nameInput").value
+
+if(name===""){
+alert("Entre ton prénom 😊")
+return
+}
+
+document.getElementById("step1").classList.add("hidden")
+document.getElementById("step2").classList.remove("hidden")
+
+document.getElementById("question").innerText=
+name + " veux-tu être ma petite amie ? ❤️"
+
+}
+
+function yes(){
+
+document.getElementById("step2").classList.add("hidden")
+document.getElementById("step3").classList.remove("hidden")
+
+createHearts()
+
+}
+
+let no=document.getElementById("noBtn")
+
+no.addEventListener("mouseover",moveButton)
+no.addEventListener("click",moveButton)
+
+function moveButton(){
+
+let x=Math.random()*250
+let y=Math.random()*200
+
+no.style.left=x+"px"
+no.style.top=y+"px"
+
+}
+
+function createHearts(){
+
+setInterval(()=>{
+
+let heart=document.createElement("div")
+heart.className="heart"
+heart.innerHTML="❤️"
+
+heart.style.left=Math.random()*100+"vw"
+heart.style.fontSize=(Math.random()*20+20)+"px"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>{heart.remove()},6000)
+
+},300)
+
+}
+
+</script>
+
+</body>
+</html>
